@@ -8,10 +8,10 @@ from load import loadFile
 
 player = Actor()
 opponent = Actor("Enemy", randint(30, 45), randint(1, 10), randint(1, 10))
-menuChoice = 1
+menuChoice = "1"
 
-while int(menuChoice) != 5:
-    print("RPG v0.0.5")
+while menuChoice != "5":
+    print("\nRPG v0.0.5\n")
     print("Current character: " + player.getName())
     print("\n\t1 - Play")
     print("\t2 - Load")
@@ -19,7 +19,7 @@ while int(menuChoice) != 5:
     print("\t4 - New")
     print("\t5 - Quit\n")
     menuChoice = input("Please make a selection:\n")
-    if int(menuChoice) == 1:
+    if menuChoice == "1":
         if player.getName() == "":
             if not os.listdir("players"):
                 player = createChar()
@@ -27,9 +27,9 @@ while int(menuChoice) != 5:
                 player = loadFile()
         else:
             player = combat(player, opponent)
-    elif int(menuChoice) == 2:
+    elif menuChoice == "2":
         player = loadFile()
-    elif int(menuChoice) == 3:
+    elif menuChoice == "3":
         saveFile(player)
-    elif int(menuChoice) == 4:
+    elif menuChoice == "4":
         player = createChar()
