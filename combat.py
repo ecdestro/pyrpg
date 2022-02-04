@@ -30,19 +30,18 @@ def combat(player, opponent):
             print(initBot.getName() + " was HIT for " + str(initTop.getDmg()))
         else:
             print(initTop.getName() + " MISSED!")
-        if randint(0, 1):
+        if randint(0, 1) and initBot.getHP() > 0:
             initTop.setHP(initTop.getHP() - initBot.getDmg())
             print(initTop.getName() + " was HIT for " + str(initBot.getDmg()))
-        else:
+        elif initBot.getHP() > 0:
             print(initBot.getName() + " MISSED!")
+        else:
+            print(initBot.getName() + " was DEFEATED!")
         round += 1
     
     if initTop.getHP() > 0:
         victor = initTop
     elif initBot.getHP() > 0:
         victor = initBot
-    
-    # initTop.printActor()
-    # initBot.printActor()
 
     return victor
