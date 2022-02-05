@@ -1,5 +1,3 @@
-from calendar import c
-from fnmatch import fnmatchcase
 import os
 from actor import Actor
 from create import createChar
