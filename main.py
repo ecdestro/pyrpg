@@ -1,35 +1,34 @@
 import os
 from random import randint
-from actor import Actor
-from combat import combat
-from create import createChar
-from save import saveFile
-from load import loadFile
+from playerClasses import Inn
+from playerClasses import Actor
+from createInn import createInn
+from loadInn import loadInn
+from saveInn import saveInn
 
-player = Actor()
-opponent = Actor("Enemy", randint(30, 45), randint(1, 10), randint(1, 10))
+inn = Inn()
+
 menuChoice = "1"
 
 while menuChoice != "5":
-    print("\nRPG v0.0.5\n")
-    print("Current character: " + player.getName())
+    print("\nRPG v0.0.6\n")
+    print("Current owner: " + inn.getOwner())
     print("\n\t1 - Play")
-    print("\t2 - Load")
-    print("\t3 - Save")
-    print("\t4 - New")
+    print("\t2 - Load Inn")
+    print("\t3 - Save Inn")
+    print("\t4 - New Inn")
     print("\t5 - Quit\n")
     menuChoice = input("Please make a selection:\n")
     if menuChoice == "1":
-        if player.getName() == "":
-            if not os.listdir("players"):
-                player = createChar()
-            else:
-                player = loadFile()
+        if inn.getOwner() == "":
+            if not os.listdir("inns"):
+                inn = createInn()
         else:
-            player = combat(player, opponent)
+            inn.printInn()
+            inn.printCustomers()
     elif menuChoice == "2":
-        player = loadFile()
+        inn = loadInn()
     elif menuChoice == "3":
-        saveFile(player)
+        saveInn(inn)
     elif menuChoice == "4":
-        player = createChar()
+        inn = createInn()
