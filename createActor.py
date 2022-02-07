@@ -1,7 +1,7 @@
 import os
 import random
-from actor import Actor
-from inn import Inn
+from playerClasses import Actor
+from playerClasses import Inn
 
 def createChar(innFile):
     with open (r"assets/text/names", "r") as merdenoms:

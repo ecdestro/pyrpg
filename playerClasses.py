@@ -9,14 +9,6 @@ class Actor:
         self.experience = experience
         self.wealth = wealth
 
-    # def __iter__(self):
-    #     self.index = 0
-    #     return self
-
-    # def __next__(self):
-    #     self.index += 1
-    #     return self
-
     def setName(self, name):
         self.name = name
     def getName(self):
@@ -115,4 +107,3 @@ if __name__ == "__main__":
     inn.printInn()
     for customer in inn.getLedger():
         customer.printActor()
-    

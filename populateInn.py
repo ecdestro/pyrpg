@@ -8,7 +8,7 @@ def populate(inn):
         name = merDeNoms.read().split()
 
     i = 0
-    while i < inn.getCustomerMax():
+    while i < (inn.getCustomerMax() - len(inn.getLedger())) :
         customer = Actor(random.choice(name), random.randint(35, 50), random.randint(5, 10), random.randint(5, 10), 0, random.randint(10, 50))
         inn.addCustomer(customer)
         i += 1

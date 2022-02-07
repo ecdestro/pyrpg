@@ -1,10 +1,11 @@
 import os
 from random import randint
 from playerClasses import Inn
-from playerClasses import Actor
 from createInn import createInn
 from loadInn import loadInn
 from saveInn import saveInn
+from playerClasses import Actor
+
 
 inn = Inn()
 
