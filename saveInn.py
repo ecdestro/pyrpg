@@ -1,5 +1,5 @@
 import os
-from playerClasses import Inn
+from playerModels import Inn
 from saveActor import saveActor
 
 def saveInn(inn):

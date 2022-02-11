@@ -1,6 +1,6 @@
 import os
-from playerClasses import Inn
-from playerClasses import Actor
+from playerModels import Inn
+from playerModels import Actor
 from createActor import createChar
 from createInn import createInn
 

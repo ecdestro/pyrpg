@@ -1,6 +1,6 @@
 import os
 import random
-from playerClasses import Inn
+from playerModels import Inn
 from populateInn import populate
 
 def createInn():

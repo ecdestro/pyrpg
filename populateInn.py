@@ -1,7 +1,7 @@
 import os
 import random
-from playerClasses import Actor
-from playerClasses import Inn
+from playerModels import Actor
+from playerModels import Inn
 
 def populate(inn):
     with open(r"assets/text/names", "r") as merDeNoms:

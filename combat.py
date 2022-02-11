@@ -1,5 +1,5 @@
 from random import randint
-from playerClasses import Actor
+from playerModels import Actor
 
 def combat(player, opponent):
     victor, initTop, initBot = Actor(), Actor(), Actor()

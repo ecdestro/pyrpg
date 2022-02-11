@@ -1,6 +1,6 @@
 import os
-from playerClasses import Actor
-from playerClasses import Inn
+from playerModels import Actor
+from playerModels import Inn
 
 def saveActor(inn):
     if len(inn.getLedger()) == 0:
