@@ -1,3 +1,4 @@
+from gettext import find
 import sqlite3
 from playerModels import Inn
 from random import randint
@@ -9,12 +10,19 @@ def newInn():
     inn = Inn()
     choice = "N"
     while choice == "N" or choice == "n":
-        inn.setOwner(input("\nEnter the innkeeper's name:\n"))
-        inn.setName(input("\nName your inn:\n"))
-        inn.setCustomerMax(randint(10, 15))
-        inn.setWealth(randint(2, 5) * 1000)
-        inn.printInn()
-        choice = input("\nKeep this inn? Y/N\n")
+        ownerInput = input("\nEnter the innkeeper's name:\n")
+        cur.execute("""SELECT EXISTS(SELECT * FROM inns WHERE innOwner = ?)""", (ownerInput,))
+        ownerList = cur.fetchall()
+        if ownerList[0][0]:
+            print("\nThat owner already exists!\n")
+            choice = "N"
+        else:
+            inn.setOwner(ownerInput)
+            inn.setName(input("\nName your inn:\n"))
+            inn.setCustomerMax(randint(10, 15))
+            inn.setWealth(randint(2, 5) * 1000)
+            inn.printInn()
+            choice = input("\nKeep this inn? Y/N\n")
 
     newInn = """INSERT INTO inns VALUES (?, ?, ?, ?);"""
     cur.execute(newInn, (inn.getOwner(), inn.getName(), inn.getCustomerMax(), inn.getWealth()))
