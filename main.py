@@ -1,18 +1,14 @@
-import os
-from random import randint
 from playerModels import Inn
-from createInn import createInn
-from loadInn import loadInn
-from saveInn import saveInn
-from playerModels import Actor
-
+from load import loadInn
+from save import saveInn
+from new import newInn
 
 inn = Inn()
 
 menuChoice = "1"
 
 while menuChoice != "5":
-    print("\nRPG v0.0.6\n")
+    print("\nRPG v0.0.7\n")
     print("Current owner: " + inn.getOwner())
     print("\n\t1 - Play")
     print("\t2 - Load Inn")
@@ -22,8 +18,7 @@ while menuChoice != "5":
     menuChoice = input("Please make a selection:\n")
     if menuChoice == "1":
         if inn.getOwner() == "":
-            if not os.listdir("inns"):
-                inn = createInn()
+            inn = loadInn()
         else:
             inn.printInn()
             inn.printCustomers()
@@ -32,4 +27,4 @@ while menuChoice != "5":
     elif menuChoice == "3":
         saveInn(inn)
     elif menuChoice == "4":
-        inn = createInn()
+        inn = newInn()

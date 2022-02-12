@@ -1,8 +1,9 @@
-import random
+import sqlite3
 
 class Actor:
-    def __init__(self, name = "", hitPoints = 0, damage = 0, initiative = 0, experience = 0, wealth = 0):
+    def __init__(self, name = "", keeper = "", hitPoints = 0, damage = 0, initiative = 0, experience = 0, wealth = 0):
         self.name = name
+        self.keeper = keeper
         self.hitPoints = hitPoints
         self.damage = damage
         self.initiative = initiative
@@ -13,6 +14,11 @@ class Actor:
         self.name = name
     def getName(self):
         return self.name
+
+    def setKeeper(self, keeper):
+        self.keeper = keeper
+    def getKeeper(self):
+        return self.keeper
 
     def setHP(self, hitPoints):
         self.hitPoints = hitPoints
@@ -41,6 +47,7 @@ class Actor:
 
     def printActor(self):
         print("Name = " + self.getName())
+        print("Keep = " + self.getKeeper())
         print("HP   = " + str(self.getHP()))
         print("Dmg  = " + str(self.getDmg()))
         print("Init = " + str(self.getInit()))
@@ -48,8 +55,9 @@ class Actor:
         print("Gold = " + str(self.getWealth()))
 
 class Inn:
-    def __init__(self, owner = "", customerMax = 0, wealth = 0):
+    def __init__(self, owner = "", innName = "", customerMax = 0, wealth = 0):
         self.owner = owner
+        self.innName = innName
         self.customerMax = customerMax
         self.wealth = wealth
         self.customer = Actor()
@@ -59,6 +67,11 @@ class Inn:
         self.owner = owner
     def getOwner(self):
         return self.owner
+
+    def setName(self, innName):
+        self.innName = innName
+    def getName(self):
+        return self.innName
 
     def setCustomerMax(self, customerMax):
         self.customerMax = customerMax
@@ -82,28 +95,22 @@ class Inn:
 
     def printInn(self):
         print("Owner = " + self.getOwner())
+        print("Name = " +self.getName())
         print("Max Customers = " + str(self.getCustomerMax()))
         print("Cash on Hand = " + str(self.getWealth()) + "\n")
 
     def printCustomers(self):
-        if len(self.customerLedger) > 0:
-            for x in self.customerLedger:
-                x.printActor()
+        if self.getCustomerMax() > 0:
+            con = sqlite3.connect("assets/db/inns.db")
+            cur = con.cursor()
+
+            pullActors = """SELECT * FROM actors WHERE innKeeper = ?;"""
+            cur.execute(pullActors, (self.getOwner(),))
+            patrons = cur.fetchall()
+            for patron in patrons:
+                print(patron)
+
+            con.commit()
+            con.close()
         else:
             print("No customers\n")
-
-if __name__ == "__main__":
-    with open(r"assets/text/names", "r") as merDeNoms:
-        name = merDeNoms.read().split()
-
-    inn = Inn("Destro",4,5000)
-
-    i = 0
-    while i < inn.getCustomerMax():
-        customer = Actor(random.choice(name), random.randint(35, 50), random.randint(5, 10), random.randint(5, 10), 0, random.randint(10, 50))
-        inn.addCustomer(customer)
-        i += 1
-
-    inn.printInn()
-    for customer in inn.getLedger():
-        customer.printActor()

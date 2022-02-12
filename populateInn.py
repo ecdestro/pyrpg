@@ -1,17 +1,22 @@
-import os
-import random
+import sqlite3
 from playerModels import Actor
 from playerModels import Inn
 
 def populate(inn):
-    with open(r"assets/text/names", "r") as merDeNoms:
-        name = merDeNoms.read().split()
+    con = sqlite3.connect("assets/db/inns.db")
+    cur = con.cursor()
 
-    i = 0
-    while i < (inn.getCustomerMax() - len(inn.getLedger())) :
-        customer = Actor(random.choice(name), random.randint(35, 50), random.randint(5, 10), random.randint(5, 10), 0, random.randint(10, 50))
-        inn.addCustomer(customer)
-        i += 1
+    cur.execute("""SELECT * FROM actors WHERE innKeeper IS NULL ORDER BY RANDOM() LIMIT ?""", (inn.getCustomerMax(),))
+
+    actors = cur.fetchall()
+    for row in actors:
+        cur.execute("""UPDATE actors SET innKeeper = ? WHERE actorID = ?""", (inn.getOwner(),row[0]))
     
-    for customer in inn.getLedger():
-        customer.printActor()
+    con.commit()
+    con.close()
+
+if __name__ == "__main__":
+    inn = Inn("Destro", "The Broken Tusk", 4, 3000)
+    populate(inn)
+    inn.printInn()
+    inn.printCustomers()
