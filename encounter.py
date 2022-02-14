@@ -22,14 +22,15 @@ def encounter(inn):
     victor, defeated = combat(player, enemy)
     victor.printActor()
     defeated.printActor()
+    print(playerRow[0])
     if victor.getKeeper() == inn.getOwner():
         playerInsert = """UPDATE actors SET hitPoints = ?, expLevel = ?, goldHeld = ? WHERE actorID = ?;"""
-        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerDraw[0])) # victor.getExp() not getting added to expLevel, not sure why
+        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerRow[0])) # this line is not updating db
         enemyInsert = """UPDATE encounters SET statusName = ?, encounterHP = 0, goldHeld = ? WHERE encounterName = ?;"""
         cur.execute(enemyInsert, (defeated.getKeeper(), defeated.getWealth(), defeated.getName()))
     else:
         playerInsert = """UPDATE actors SET hitPoints = 0, expLevel = ?, goldHeld = ? WHERE actorID = ?;"""
-        cur.execute(playerInsert, (defeated.getExp(), defeated.getWealth(), playerDraw[0]))
+        cur.execute(playerInsert, (defeated.getExp(), defeated.getWealth(), playerRow[0]))
         enemyInsert = """UPDATE encounters SET statusName = ?, encounterHP = ?, goldHeld = ? WHERE encounterName = ?;"""
         cur.execute(enemyInsert, (victor.getKeeper(), victor.getHP(), victor.getWealth(), victor.getName()))
 
