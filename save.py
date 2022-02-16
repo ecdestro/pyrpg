@@ -12,7 +12,7 @@ def saveInn(inn):
     cur.execute(saveInn, (inn.getCustomerMax(), inn.getWealth(), inn.getOwner()))
     print("\nInn Saved!\n")
     
-    savePatrons = """UPDATE actors SET innKeeper = ? WHERE innKeeper = ?;"""
+    savePatrons = """UPDATE actors SET innID = ? WHERE innKeeper = ?;"""
 
     cur.execute(savePatrons, (inn.getOwner(), inn.getOwner()))
     print("\nPatrons saved!\n")

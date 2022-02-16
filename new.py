@@ -24,11 +24,11 @@ def newInn():
             inn.printInn()
             choice = input("\nKeep this inn? Y/N\n")
 
-    newInn = """INSERT INTO inns VALUES (?, ?, ?, ?);"""
-    cur.execute(newInn, (inn.getOwner(), inn.getName(), inn.getCustomerMax(), inn.getWealth()))
+    newInn = """INSERT INTO inns VALUES (?, ?, ?, ?, ?);"""
+    cur.execute(newInn, (None, inn.getOwner(), inn.getName(), inn.getCustomerMax(), inn.getWealth()))
     con.commit()
 
-    pullActors = """SELECT * FROM actors WHERE innKeeper IS NULL ORDER BY RANDOM() LIMIT ?"""
+    pullActors = """SELECT * FROM actors WHERE innID IS NULL ORDER BY RANDOM() LIMIT ?"""
     cur.execute(pullActors, (inn.getCustomerMax(),))
     con.commit()
     

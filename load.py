@@ -18,7 +18,11 @@ def loadInn():
     cur.execute(findInn, (innOwner,))
 
     innRow = cur.fetchone()
-    inn = Inn(innRow[0], innRow[1], innRow[2], innRow[3])
+    inn = Inn(innRow[1], innRow[2], innRow[3], innRow[4])
+
+    con.commit()
+    con.close()
+    
     return inn
 
 if __name__ == "__main__":

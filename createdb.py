@@ -6,10 +6,12 @@ def createTables():
                 os.makedirs("assets/db")
         else:
                 con = sqlite3.connect("assets/db/inns.db")
+                con.execute("PRAGMA foreign_keys = 1;")
                 cur = con.cursor()
 
                 innTable = """CREATE TABLE IF NOT EXISTS inns
-                        (innOwner TEXT(25),
+                        (innID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        innOwner TEXT(25),
                         innName TEXT(150),
                         innLedger INT,
                         innWealth INT
@@ -19,7 +21,7 @@ def createTables():
                         (actorID INTEGER PRIMARY KEY AUTOINCREMENT,
                         firstName TEXT(25),
                         lastName TEXT(25),
-                        innKeeper TEXT(25) NULL,
+                        innID INT NULL,
                         hitPoints INT,
                         baseDamage INT,
                         initiative INT,
@@ -84,7 +86,17 @@ def populateEncounters():
         con.commit()
         con.close()
 
+def setupInns():
+        con = sqlite3.connect("assets/db/inns.db")
+        cur = con.cursor()
+
+        cur.execute("INSERT INTO inns (innOwner, innName, innLedger, innWealth) VALUES (NULL, 'Adventure', NULL, NULL);")
+
+        con.commit()
+        con.close()
+
 if __name__ == "__main__":
         createTables()
+        setupInns()
         popultePatrons()
         populateEncounters()
