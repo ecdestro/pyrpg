@@ -14,7 +14,7 @@ def saveInn(inn):
     
     savePatrons = """UPDATE actors SET innID = ? WHERE innKeeper = ?;"""
 
-    cur.execute(savePatrons, (inn.getOwner(), inn.getOwner()))
+    cur.execute(savePatrons, (inn.getOwner(), inn.getOwner())) # This will not work in current version
     print("\nPatrons saved!\n")
 
     con.commit()
