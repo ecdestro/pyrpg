@@ -1,6 +1,6 @@
 from playerModels import Inn
-from load import loadInn
-from save import saveInn
+from loadsave import loadInn
+from loadsave import saveInn
 from new import newInn
 
 inn = Inn()

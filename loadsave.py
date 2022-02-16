@@ -1,5 +1,6 @@
 import sqlite3
 from playerModels import Inn
+from playerModels import Actor
 
 def loadInn():
     con = sqlite3.connect("assets/db/inns.db")
@@ -24,6 +25,23 @@ def loadInn():
     con.close()
     
     return inn
+
+def saveInn(inn):
+    con = sqlite3.connect("assets/db/inns.db")
+    cur = con.cursor()
+
+    saveInn = """UPDATE inns SET innLedger = ?, innWealth = ? WHERE innOwner = ?;"""
+
+    cur.execute(saveInn, (inn.getCustomerMax(), inn.getWealth(), inn.getOwner()))
+    print("\nInn Saved!\n")
+    
+    savePatrons = """UPDATE actors SET innID = ? WHERE innKeeper = ?;"""
+
+    cur.execute(savePatrons, (inn.getOwner(), inn.getOwner())) # This will not work in current version
+    print("\nPatrons saved!\n")
+
+    con.commit()
+    con.close()
 
 if __name__ == "__main__":
     inn = loadInn()
