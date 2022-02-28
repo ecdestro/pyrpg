@@ -24,15 +24,15 @@ def newInn():
             inn.printInn()
             choice = input("\nKeep this inn? Y/N\n")
 
-    newInn = """INSERT INTO inns VALUES (?, ?, ?, ?, ?);"""
-    cur.execute(newInn, (None, inn.getOwner(), inn.getName(), inn.getCustomerMax(), inn.getWealth()))
+    newInn = """INSERT INTO inns VALUES (?, ?, ?, ?);"""
+    cur.execute(newInn, (inn.getOwner(), inn.getName(), inn.getCustomerMax(), inn.getWealth()))
     con.commit()
 
-    pullActors = """SELECT * FROM actors WHERE innID IS NULL ORDER BY RANDOM() LIMIT ?"""
+    pullActors = """SELECT * FROM actors WHERE innOwner IS NULL ORDER BY RANDOM() LIMIT ?"""
     cur.execute(pullActors, (inn.getCustomerMax(),))
     con.commit()
-    
-    actorMod = """UPDATE actors SET innKeeper = ? WHERE actorID = ?"""
+
+    actorMod = """UPDATE actors SET innOwner = ? WHERE actorID = ?"""
     patrons = cur.fetchall()
     for row in patrons:
         cur.execute(actorMod, (inn.getOwner(), row[0]))

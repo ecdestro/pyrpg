@@ -10,8 +10,7 @@ def createTables():
                 cur = con.cursor()
 
                 innTable = """CREATE TABLE IF NOT EXISTS inns
-                        (innID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        innOwner TEXT(25),
+                        (innOwner TEXT(25) PRIMARY KEY,
                         innName TEXT(150),
                         innLedger INT,
                         innWealth INT
@@ -21,12 +20,14 @@ def createTables():
                         (actorID INTEGER PRIMARY KEY AUTOINCREMENT,
                         firstName TEXT(25),
                         lastName TEXT(25),
-                        innID INT NULL,
+                        innOwner TEXT(25),
                         hitPoints INT,
                         baseDamage INT,
                         initiative INT,
                         expLevel INT,
-                        goldHeld INT
+                        goldHeld INT,
+                        FOREIGN KEY (innOwner)
+                                REFERENCES inns (innOwner)
                         );"""
 
                 encountersTable = """CREATE TABLE IF NOT EXISTS encounters

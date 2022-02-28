@@ -95,7 +95,7 @@ class Inn:
 
     def printInn(self):
         print("Owner = " + self.getOwner())
-        print("Name = " +self.getName())
+        print("Name = " + self.getName())
         print("Max Customers = " + str(self.getCustomerMax()))
         print("Cash on Hand = " + str(self.getWealth()) + "\n")
 
@@ -104,7 +104,7 @@ class Inn:
             con = sqlite3.connect("assets/db/inns.db")
             cur = con.cursor()
 
-            pullActors = """SELECT * FROM actors WHERE innKeeper = ?;"""
+            pullActors = """SELECT * FROM actors WHERE innOwner = ?;"""
             cur.execute(pullActors, (self.getOwner(),))
             patrons = cur.fetchall()
             for patron in patrons:

@@ -13,7 +13,7 @@ def encounter(inn):
     enemy = Actor(enemyRow[0], enemyRow[1], enemyRow[2], enemyRow[3], enemyRow[4], enemyRow[5], enemyRow[6])
     enemy.printActor()
     
-    playerDraw = """SELECT * FROM actors WHERE innKeeper = ? ORDER BY RANDOM() LIMIT ?;"""
+    playerDraw = """SELECT * FROM actors WHERE innOwner = ? ORDER BY RANDOM() LIMIT ?;"""
     cur.execute(playerDraw, (inn.getOwner(),1))
     playerRow = cur.fetchone()
     player = Actor(playerRow[1] + " " + playerRow[2], playerRow[3], playerRow[4], playerRow[5], playerRow[6], playerRow[7], playerRow[8])
