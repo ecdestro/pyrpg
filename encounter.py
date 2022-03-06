@@ -22,10 +22,10 @@ def encounter(inn):
     victor, defeated = combat(player, enemy)
     victor.printActor()
     defeated.printActor()
-    print(playerRow[0])
+
     if victor.getKeeper() == inn.getOwner():
         playerInsert = """UPDATE actors SET hitPoints = ?, expLevel = ?, goldHeld = ? WHERE actorID = ?;"""
-        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerRow[0])) # this line is not updating db
+        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerRow[0]))
         enemyInsert = """UPDATE encounters SET statusName = ?, encounterHP = 0, goldHeld = ? WHERE encounterName = ?;"""
         cur.execute(enemyInsert, (defeated.getKeeper(), defeated.getWealth(), defeated.getName()))
     else:
@@ -38,5 +38,5 @@ def encounter(inn):
     con.close()
 
 if __name__ == "__main__":
-    inn = Inn("Destro", "The Broken Tusk", 10, 3000)
+    inn = Inn("Destro", "The Broken Tusk", 10, 5000)
     encounter(inn)

@@ -60,8 +60,8 @@ class Inn:
         self.innName = innName
         self.customerMax = customerMax
         self.wealth = wealth
-        self.customer = Actor()
-        self.customerLedger = []
+        # self.customer = Actor()
+        # self.customerLedger = []
 
     def setOwner(self, owner):
         self.owner = owner
@@ -83,15 +83,15 @@ class Inn:
     def getWealth(self):
         return self.wealth
 
-    def addCustomer(self, customer):
-        self.customerLedger.append(customer)
-    def removeCustomer(self, customer):
-        self.customerLedger.remove(customer)
-    def getCustomers(self):
-        for self.customer in self.customerLedger:
-            return self.customer
-    def getLedger(self):
-        return self.customerLedger 
+    # def addCustomer(self, customer):
+    #     self.customerLedger.append(customer)
+    # def removeCustomer(self, customer):
+    #     self.customerLedger.remove(customer)
+    # def getCustomers(self):
+    #     for self.customer in self.customerLedger:
+    #         return self.customer
+    # def getLedger(self):
+    #     return self.customerLedger 
 
     def printInn(self):
         print("Owner = " + self.getOwner())
