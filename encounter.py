@@ -13,7 +13,7 @@ def encounter(inn):
     enemy = Actor(enemyRow[0], enemyRow[1], enemyRow[2], enemyRow[3], enemyRow[4], enemyRow[5], enemyRow[6])
     enemy.printActor()
     
-    playerDraw = """SELECT * FROM actors WHERE innKeeper = ? ORDER BY RANDOM() LIMIT ?;"""
+    playerDraw = """SELECT * FROM actors WHERE innOwner = ? ORDER BY RANDOM() LIMIT ?;"""
     cur.execute(playerDraw, (inn.getOwner(),1))
     playerRow = cur.fetchone()
     player = Actor(playerRow[1] + " " + playerRow[2], playerRow[3], playerRow[4], playerRow[5], playerRow[6], playerRow[7], playerRow[8])
@@ -22,10 +22,10 @@ def encounter(inn):
     victor, defeated = combat(player, enemy)
     victor.printActor()
     defeated.printActor()
-    print(playerRow[0])
+
     if victor.getKeeper() == inn.getOwner():
         playerInsert = """UPDATE actors SET hitPoints = ?, expLevel = ?, goldHeld = ? WHERE actorID = ?;"""
-        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerRow[0])) # this line is not updating db
+        cur.execute(playerInsert, (victor.getHP(), victor.getExp(), victor.getWealth(), playerRow[0]))
         enemyInsert = """UPDATE encounters SET statusName = ?, encounterHP = 0, goldHeld = ? WHERE encounterName = ?;"""
         cur.execute(enemyInsert, (defeated.getKeeper(), defeated.getWealth(), defeated.getName()))
     else:
@@ -38,5 +38,5 @@ def encounter(inn):
     con.close()
 
 if __name__ == "__main__":
-    inn = Inn("Destro", "The Broken Tusk", 10, 3000)
+    inn = Inn("Destro", "The Broken Tusk", 10, 5000)
     encounter(inn)

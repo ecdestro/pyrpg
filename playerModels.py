@@ -60,8 +60,8 @@ class Inn:
         self.innName = innName
         self.customerMax = customerMax
         self.wealth = wealth
-        self.customer = Actor()
-        self.customerLedger = []
+        # self.customer = Actor()
+        # self.customerLedger = []
 
     def setOwner(self, owner):
         self.owner = owner
@@ -83,19 +83,19 @@ class Inn:
     def getWealth(self):
         return self.wealth
 
-    def addCustomer(self, customer):
-        self.customerLedger.append(customer)
-    def removeCustomer(self, customer):
-        self.customerLedger.remove(customer)
-    def getCustomers(self):
-        for self.customer in self.customerLedger:
-            return self.customer
-    def getLedger(self):
-        return self.customerLedger 
+    # def addCustomer(self, customer):
+    #     self.customerLedger.append(customer)
+    # def removeCustomer(self, customer):
+    #     self.customerLedger.remove(customer)
+    # def getCustomers(self):
+    #     for self.customer in self.customerLedger:
+    #         return self.customer
+    # def getLedger(self):
+    #     return self.customerLedger 
 
     def printInn(self):
         print("Owner = " + self.getOwner())
-        print("Name = " +self.getName())
+        print("Name = " + self.getName())
         print("Max Customers = " + str(self.getCustomerMax()))
         print("Cash on Hand = " + str(self.getWealth()) + "\n")
 
@@ -104,8 +104,13 @@ class Inn:
             con = sqlite3.connect("assets/db/inns.db")
             cur = con.cursor()
 
+<<<<<<< HEAD
             pullActors = """SELECT * FROM actors WHERE innID = ?;"""
             cur.execute(pullActors, (self.getOwner(),)) # Needs to pull innID, not innOwner name
+=======
+            pullActors = """SELECT * FROM actors WHERE innOwner = ?;"""
+            cur.execute(pullActors, (self.getOwner(),))
+>>>>>>> 29475ec8a242b709a770df41de4bc5607733e9b9
             patrons = cur.fetchall()
             for patron in patrons:
                 print(patron)
