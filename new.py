@@ -32,7 +32,7 @@ def newInn():
     cur.execute(pullActors, (inn.getCustomerMax(),))
     con.commit()
     
-    actorMod = """UPDATE actors SET innKeeper = ? WHERE actorID = ?"""
+    actorMod = """UPDATE actors SET innOwner = ? WHERE actorID = ?"""
     patrons = cur.fetchall()
     for row in patrons:
         cur.execute(actorMod, (inn.getOwner(), row[0]))

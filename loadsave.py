@@ -10,7 +10,7 @@ def loadInn():
     cur.execute(listInns)
     innList = cur.fetchall()
     for inn in innList:
-        print(inn[0])
+        print(inn[1])
     con.commit()
 
     innOwner = input("\nEnter the name of an Innkeeper:\n")

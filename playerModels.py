@@ -104,8 +104,8 @@ class Inn:
             con = sqlite3.connect("assets/db/inns.db")
             cur = con.cursor()
 
-            pullActors = """SELECT * FROM actors WHERE innKeeper = ?;"""
-            cur.execute(pullActors, (self.getOwner(),))
+            pullActors = """SELECT * FROM actors WHERE innID = ?;"""
+            cur.execute(pullActors, (self.getOwner(),)) # Needs to pull innID, not innOwner name
             patrons = cur.fetchall()
             for patron in patrons:
                 print(patron)
