@@ -90,10 +90,11 @@ bNew.grid(row=4, column= 3)
 bUpdate = Button(window, text="Update", width=12, command=updatePatron)
 bUpdate.grid(row=5, column= 3)
 
-bDelete = Button(window, text="Delete", width=12)
+bDelete = Button(window, text="Delete", width=12, command=deletePatron)
 bDelete.grid(row=6, column= 3)
 
-bClose = Button(window, text="Close", width=12)
+bClose = Button(window, text="Close", width=12, command=window.destroy)
 bClose.grid(row=7, column= 3)
 
 window.mainloop()
+
