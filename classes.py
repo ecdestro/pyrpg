@@ -1,7 +1,22 @@
+# 
+# classes.py: a definition of Inn objects, patron objects, monster objects, and equipment objects
+# Author: ecdestro
+# Date: 29 Oct 2022
+#
+
+# Inn: inn(id, innKeeper, level, gold, patronCap)
+#   id - index in Inn table of the database
+#   innKeeper - name of the save file
+#   innName - name of the Inn
+#   level - prestige level of the inn (used to attach businesses)
+#   gold - wealth of the inn
+#   patronCap - capacity of the inn for overnight stays
+
 class Inn:
-    def __init__(self, id = 0, innKeeper = '', level = 0, gold = 0, patronCap = 0) -> None:
+    def __init__(self, id = 0, innKeeper = "", innName = "", level = 0, gold = 0, patronCap = 0) -> None:
         self.id = id
         self.innKeeper = innKeeper
+        self.innName = innName
         self.level = level
         self.gold = gold
         self.patronCap = patronCap
@@ -12,11 +27,17 @@ class Inn:
     def getID(self) -> int:
         return self.id
 
-    def setName(self, innKeeper):
+    def setKeeper(self, innKeeper):
         self.innKeeper = innKeeper
 
-    def getName(self) -> str:
+    def getKeeper(self) -> str:
         return self.innKeeper
+
+    def setName(self, innName):
+        self.innName = innName
+
+    def getName(self) -> str:
+        return self.innName
 
     def setXp(self, level):
         self.level = level
@@ -37,10 +58,20 @@ class Inn:
         return self.patronCap
 
     def print(self):
-        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getGold()) + " " + str(self.getPatronCap))
+        print(str(self.getID()) + " " + str(self.getKeeper()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getGold()) + " " + str(self.getPatronCap))
+
+# Patron: patron(id, name, xp, hp, gold, dmg, stat, equipment)
+#   id - index in the patrons table
+#   name - name of the patron
+#   xp - experience level of the patron (modifies effects of initiative)
+#   hp - hitpoints (health)
+#   gold - wealth held by patron
+#   dmg - base damage
+#   stat - status (unknown, away (business), away (adventure), boarded, deceased)
+#   equip - index of the piece of equipment from the equipment table
 
 class Patron:
-    def __init__(self, id = 0, name = "", xp = 0, hp = 0, gold = 0, dmg = 0) -> None:
+    def __init__(self, id = 0, name = "", xp = 0, hp = 0, gold = 0, dmg = 0, stat = 0, equip = 0) -> None:
         self.id = id
         self.name = name
         self.xp = xp
