@@ -78,6 +78,8 @@ class Patron:
         self.hp = hp
         self.gold = gold
         self.dmg = dmg
+        self.stat = stat
+        self.equip = equip
 
     def setID(self, id):
         self.id = id
@@ -115,16 +117,37 @@ class Patron:
     def getDmg(self) -> int:
         return self.dmg
 
+    def setStat(self, stat):
+        self.stat = stat
+
+    def getStat(self) -> int:
+        return self.stat
+
+    def setEquip(self, equip):
+        self.equip = equip
+
+    def getEquip(self) -> int:
+        return self.equip
+
     def print(self):
-        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getHp()) + " " + str(self.getGold()) + " " + str(self.getDmg()))
+        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getHp()) + " " + str(self.getGold()) + " " + str(self.getDmg()) + " " + str(self.getStat()) + " " + str(self.getEquip()))
+
+# Equipment: equipment(id, name, gold, hpBuff, dmgBuff, goldBuff)
+#   id - index of the equipment in the table, referenced in patron's equipment slot
+#   name - name of the piece of equipment
+#   gold - worth of the equipment
+#   hpBuff - damage reduction ability of the equipment
+#   dmgBuff - additional damage above base damage of the patron wielding
+#   goldBuff - percentage of additional gold found when gold is found by the patron
 
 class Equipment:
-    def __init__(self, id = 0, name = "", gold = 0, hpBuff = 0, dmgBuff = 0) -> None:
+    def __init__(self, id = 0, name = "", gold = 0, hpBuff = 0, dmgBuff = 0, goldBuff = 0) -> None:
         self.id = id
         self.name = name
         self.gold = gold
         self.hpBuff = hpBuff
         self.dmgBuff = dmgBuff
+        self.goldBuff = goldBuff
 
     def setID(self, id):
         self.id = id
@@ -156,14 +179,29 @@ class Equipment:
     def getDmgBuff(self) -> int:
         return self.dmgBuff
 
+    def setGoldBuff(self, goldBuff):
+        self.goldBuff = goldBuff
+
+    def getGoldBuff(self) -> int:
+        return self.goldBuff
+
     def print(self):
-        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getGold()) + " " + str(self.getHpBuff()) + " " + str(self.getDmgBuff()))
+        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getGold()) + " " + str(self.getHpBuff()) + " " + str(self.getDmgBuff()) + " " + str(self.getGoldBuff()))
+
+# Monster: monster(id, type, level, gold, dmg)
+#   id - index of monster in the monster table
+#   type - basic type of monster
+#   level - experience level (and initiative) of monster
+#   hp - monster's hitpoints
+#   gold - gold held by monster
+#   dmg - base damage of the monster
 
 class Monster:
-    def __init__(self, id = 0, type = "", level = 0, gold = 0, dmg = 0) -> None:
+    def __init__(self, id = 0, type = "", level = 0, hp = 0, gold = 0, dmg = 0) -> None:
         self.id = id
         self.type = type
         self.level = level
+        self.hp = hp
         self.gold = gold
         self.dmg = dmg
 
@@ -184,6 +222,12 @@ class Monster:
     
     def getXp(self) -> int:
         return self.level
+
+    def setHp(self, hp):
+        self.hp = hp
+    
+    def getHp(self) -> int:
+        return self.hp
     
     def setGold(self, gold):
         self.gold = gold
@@ -198,4 +242,4 @@ class Monster:
         return self.dmg
     
     def print(self):
-        print(str(self.getID()) + " " + str(self.getType()) + " " + str(self.getXp()) + " " + str(self.getGold()) + " " + str(self.getDmg()))
+        print(str(self.getID()) + " " + str(self.getType()) + " " + str(self.getXp()) + " " + str(self.getHp()) + " " + str(self.getGold()) + " " + str(self.getDmg()))

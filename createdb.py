@@ -10,8 +10,8 @@ def createDB():
     conn=sqlite3.connect(fileNameString)
     cur=conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS patrons (id INTEGER PRIMARY KEY, name text(50), xp integer, hp integer, gold integer, dmg integer, stat integer, equip integer, FOREIGN KEY(equip) REFERENCES equipment(id))")
-    cur.execute("CREATE TABLE IF NOT EXISTS monsters (id INTEGER PRIMARY KEY, type text(50), xp integer, gold integer, dmg integer)")
-    cur.execute("CREATE TABLE IF NOT EXISTS equipment (id INTEGER PRIMARY KEY, name text(50), gold integer, hpBuff integer, dmgBuff integer)")
+    cur.execute("CREATE TABLE IF NOT EXISTS monsters (id INTEGER PRIMARY KEY, type text(50), xp integer, hp integer, gold integer, dmg integer)")
+    cur.execute("CREATE TABLE IF NOT EXISTS equipment (id INTEGER PRIMARY KEY, name text(50), gold integer, hpBuff integer, dmgBuff integer, goldBuff integer)")
     conn.commit()
     conn.close()
 
