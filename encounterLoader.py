@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from random import randint
 from classes import *
 
 fileName = input("Enter an Innkeeper's name: ")
@@ -18,6 +19,7 @@ def pullPatron():
     conn.commit()
     conn.close()
     patron = Patron(patronTup[0], patronTup[1], patronTup[2], patronTup[3], patronTup[4], patronTup[5], patronTup[6], patronTup[7])
+    patron.print()
     return patron
 
 def pullMonster():
@@ -28,26 +30,30 @@ def pullMonster():
     conn.commit()
     conn.close()
     monster = Monster(monsterTup[0], monsterTup[1], monsterTup[2], monsterTup[3], monsterTup[4], monsterTup[5])
+    monster.print()
     return monster
 
 fighter = pullPatron()
 monster = pullMonster()
 
+def hitChance():
+    return randint(0, 1)
+
 def encounter(fighter, monster):
-    if fighter.getXp() == monster.getXp():
-        print("Tied for Initiative!")
-        print(fighter.getName() + " goes first!")
-        while fighter.getHP() > 0 and monster.getHp() > 0:
-            monster.setHp(monster.getHp() - fighter.getDmg())
-            fighter.setHP(fighter.getHp() - monster.getDmg())
-    elif fighter.getXp() > monster.getXp():
+    if fighter.getXp() >= monster.getXp():
         while fighter.getHp() > 0 and monster.getHp() > 0:
-            monster.setHp(monster.getHp() - fighter.getDmg())
-            fighter.setHp(fighter.getHp() - monster.getDmg())
-    elif monster.getXp() > fighter.getXp():
-        while monster.getHp() > 0 and fighter.getHp() > 0:
-            fighter.setHp(fighter.getHp() - monster.getDmg())
-            monster.setHp(monster.getHp() - fighter.getDmg())
+            monster.setHp(monster.getHp() - fighter.getDmg() * hitChance())
+            if monster.getHp() <= 0:
+                pass
+            else:
+                fighter.setHp(fighter.getHp() - monster.getDmg() * hitChance())
+    else:
+        while fighter.getHp() > 0 and monster.getHp() > 0:
+            fighter.setHp(fighter.getHp() - monster.getDmg() * hitChance())
+            if fighter.getHp() <= 0:
+                pass
+            else:
+                monster.setHp(monster.getHp() - fighter.getDmg() * hitChance())
     
     print(fighter.getHp())
     print(monster.getHp())
