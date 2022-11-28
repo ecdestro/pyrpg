@@ -1,245 +1,301 @@
-# 
-# classes.py: a definition of Inn objects, patron objects, monster objects, and equipment objects
-# Author: ecdestro
-# Date: 29 Oct 2022
-#
-
-# Inn: inn(id, innKeeper, level, gold, patronCap)
-#   id - index in Inn table of the database
-#   innKeeper - name of the save file
-#   innName - name of the Inn
-#   level - prestige level of the inn (used to attach businesses)
-#   gold - wealth of the inn
-#   patronCap - capacity of the inn for overnight stays
-
 class Inn:
-    def __init__(self, id = 0, innKeeper = "", innName = "", level = 0, gold = 0, patronCap = 0) -> None:
-        self.id = id
-        self.innKeeper = innKeeper
-        self.innName = innName
-        self.level = level
-        self.gold = gold
-        self.patronCap = patronCap
-
-    def setID(self, id):
-        self.id = id
-
-    def getID(self) -> int:
-        return self.id
-
-    def setKeeper(self, innKeeper):
-        self.innKeeper = innKeeper
-
-    def getKeeper(self) -> str:
-        return self.innKeeper
-
-    def setName(self, innName):
-        self.innName = innName
-
-    def getName(self) -> str:
-        return self.innName
-
-    def setXp(self, level):
-        self.level = level
-    
-    def getXp(self) -> int:
-        return self.level
-    
-    def setGold(self, gold):
-        self.gold = gold
-    
-    def getGold(self) -> int:
-        return self.gold
-
-    def setPatronCap(self, patronCap):
-        self.patronCap = patronCap
-    
-    def getPatronCap(self) -> int:
-        return self.patronCap
-
-    def print(self):
-        print(str(self.getID()) + " " + str(self.getKeeper()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getGold()) + " " + str(self.getPatronCap))
-
-# Patron: patron(id, name, xp, hp, gold, dmg, stat, equipment)
-#   id - index in the patrons table
-#   name - name of the patron
-#   xp - experience level of the patron (modifies effects of initiative)
-#   hp - hitpoints (health)
-#   gold - wealth held by patron
-#   dmg - base damage
-#   stat - status (unknown, away (business), away (adventure), boarded, deceased)
-#   equip - index of the piece of equipment from the equipment table
+    def __init__(self, id = 0, innKeeper = "", innName = "", level = 0, gold = 0, patronCap = 0) -> None: 
+        self._id = id
+        self._innKeeper = innKeeper
+        self._innName = innName
+        self._level = level
+        self._gold = gold
+        self._patronCap = patronCap
+    def __repr__(self) -> str:
+        return "Inn id:% s innKeeper:% s innName:% s level:% s gold:% s patronCap:% s" % (self._id, self._innKeeper, self._innName, self._level, self._gold, self._patronCap)
+    def __str__(self) -> str:
+        return "This inn's id is % s, owned by % s, named % s with a prestige of % s holding % s gold and servicing % s patrons." % (self._id, self._innKeeper, self._innName, self._level, self._gold, self._patronCap)
+    @property
+    def id(self) -> int:
+        return self._id
+    @id.setter
+    def id(self, id) -> None:
+        self._id = id
+    @id.deleter
+    def id(self) -> None:
+        del self._id
+    @property
+    def innKeeper(self) -> str:
+        return self._innKeeper
+    @innKeeper.setter
+    def innKeeper(self, innKeeper) -> None:
+        self._innKeeper = innKeeper
+    @innKeeper.deleter
+    def innKeeper(self) -> None:
+        del self._innKeeper
+    @property
+    def innName(self) -> str:
+        return self._innName
+    @innName.setter
+    def innName(self, innName) -> None:
+        self._innName = innName
+    @innName.deleter
+    def innName(self) -> None:
+        del self._innName
+    @property
+    def level(self) -> int:
+        return self._level
+    @level.setter
+    def level(self, level) -> None:
+        self._level = level
+    @level.deleter
+    def level(self) -> None:
+        del self._level
+    @property
+    def gold(self) -> int:
+        return self._gold
+    @gold.setter
+    def gold(self, gold) -> None:
+        self._gold = gold
+    @gold.deleter
+    def gold(self) -> None:
+        del self._gold
+    @property
+    def patronCap(self) -> int:
+        return self._patronCap
+    @patronCap.setter
+    def patronCap(self, patronCap) -> None:
+        self._patronCap = patronCap
+    @patronCap.deleter
+    def patronCap(self) -> None:
+        del self._patronCap
 
 class Patron:
     def __init__(self, id = 0, name = "", xp = 0, hp = 0, gold = 0, dmg = 0, stat = 0, equip = 0) -> None:
-        self.id = id
-        self.name = name
-        self.xp = xp
-        self.hp = hp
-        self.gold = gold
-        self.dmg = dmg
-        self.stat = stat
-        self.equip = equip
-
-    def setID(self, id):
-        self.id = id
-
-    def getID(self) -> int:
-        return self.id
-
-    def setName(self, name):
-        self.name = name
-
-    def getName(self) -> str:
-        return self.name
-
-    def setXp(self, xp):
-        self.xp = xp
-    
-    def getXp(self) -> int:
-        return self.xp
-
-    def setHp(self, hp):
-        self.hp = hp
-
-    def getHp(self) -> int:
-        return self.hp
-    
-    def setGold(self, gold):
-        self.gold = gold
-    
-    def getGold(self) -> int:
-        return self.gold
-
-    def setDmg(self, dmg):
-        self.dmg = dmg
-    
-    def getDmg(self) -> int:
-        return self.dmg
-
-    def setStat(self, stat):
-        self.stat = stat
-
-    def getStat(self) -> int:
-        return self.stat
-
-    def setEquip(self, equip):
-        self.equip = equip
-
-    def getEquip(self) -> int:
-        return self.equip
-
-    def print(self):
-        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getXp()) + " " + str(self.getHp()) + " " + str(self.getGold()) + " " + str(self.getDmg()) + " " + str(self.getStat()) + " " + str(self.getEquip()))
-
-# Equipment: equipment(id, name, gold, hpBuff, dmgBuff, goldBuff)
-#   id - index of the equipment in the table, referenced in patron's equipment slot
-#   name - name of the piece of equipment
-#   gold - worth of the equipment
-#   hpBuff - damage reduction ability of the equipment
-#   dmgBuff - additional damage above base damage of the patron wielding
-#   goldBuff - percentage of additional gold found when gold is found by the patron
+        self._id = id
+        self._name = name
+        self._xp = xp
+        self._hp = hp
+        self._gold = gold
+        self._dmg = dmg
+        self._stat = stat
+        self._equip = equip
+    def __repr__(self) -> str:
+        return "Patron id:% s name:% s xp:% s hp:% s gold:% s dmg:% s stat:% s equip:% s" % (self._id, self._name, self._xp, self._hp, self._gold, self._dmg, self._stat, self._equip)
+    def __str__(self) -> str:
+        return "The patron with the id of % s is named % s with an experience level of % s and % s hit points. They are carrying % s gold and can do % s damage. They are % s and using % s." % (self._id, self._name, self._xp, self._hp, self._gold, self._dmg, self._stat, self._equip)
+    @property
+    def id(self) -> int:
+        return self._id
+    @id.setter
+    def id(self, id) -> None:
+        self._id = id
+    @id.deleter
+    def id(self) -> None:
+        del self._id
+    @property
+    def name(self) -> str:
+        return self._name
+    @name.setter
+    def name(self, name) -> None:
+        self._name = name
+    @name.deleter
+    def name(self) -> None:
+        del self._name
+    @property
+    def xp(self) -> int:
+        return self._xp
+    @xp.setter
+    def xp(self, xp) -> None:
+        self._xp = xp
+    @xp.deleter
+    def xp(self) -> None:
+        del self._xp
+    @property
+    def hp(self) -> int:
+        return self._hp
+    @hp.setter
+    def hp(self, hp) -> None:
+        self._hp = hp
+    @hp.deleter
+    def hp(self) -> None:
+        del self._hp
+    @property
+    def gold(self) -> int:
+        return self._gold
+    @gold.setter
+    def gold(self, gold) -> None:
+        self._gold = gold
+    @gold.deleter
+    def gold(self) -> None:
+        del self._gold
+    @property
+    def dmg(self) -> int:
+        return self._dmg
+    @dmg.setter
+    def dmg(self, dmg) -> None:
+        self._dmg = dmg
+    @dmg.deleter
+    def dmg(self) -> None:
+        del self._dmg
+    @property
+    def stat(self) -> int:
+        return self._stat
+    @stat.setter
+    def stat(self, stat) -> None:
+        self._stat = stat
+    @stat.deleter
+    def stat(self) -> None:
+        del self._stat
+    @property
+    def equip(self) -> int:
+        return self._equip
+    @equip.setter
+    def equip(self, equip) -> None:
+        self._equip = equip
+    @equip.deleter
+    def equip(self) -> None:
+        del self._equip
 
 class Equipment:
     def __init__(self, id = 0, name = "", gold = 0, hpBuff = 0, dmgBuff = 0, goldBuff = 0) -> None:
-        self.id = id
-        self.name = name
-        self.gold = gold
-        self.hpBuff = hpBuff
-        self.dmgBuff = dmgBuff
-        self.goldBuff = goldBuff
-
-    def setID(self, id):
-        self.id = id
-
-    def getID(self) -> int:
-        return self.id
-    
-    def setName(self, name):
-        self.name = name
-    
-    def getName(self) -> str:
-        return self.name
-    
-    def setGold(self, gold):
-        self.gold = gold
-
-    def getGold(self) -> int:
-        return self.gold
-    
-    def setHpBuff(self, hpBuff):
-        self.hpBuff = hpBuff
-    
-    def getHpBuff(self) -> int:
-        return self.hpBuff
-
-    def setDmgBuff(self, dmgBuff):
-        self.dmgBuff = dmgBuff
-    
-    def getDmgBuff(self) -> int:
-        return self.dmgBuff
-
-    def setGoldBuff(self, goldBuff):
-        self.goldBuff = goldBuff
-
-    def getGoldBuff(self) -> int:
-        return self.goldBuff
-
-    def print(self):
-        print(str(self.getID()) + " " + str(self.getName()) + " " + str(self.getGold()) + " " + str(self.getHpBuff()) + " " + str(self.getDmgBuff()) + " " + str(self.getGoldBuff()))
-
-# Monster: monster(id, type, level, gold, dmg)
-#   id - index of monster in the monster table
-#   type - basic type of monster
-#   level - experience level (and initiative) of monster
-#   hp - monster's hitpoints
-#   gold - gold held by monster
-#   dmg - base damage of the monster
+        self._id = id
+        self._name = name
+        self._gold = gold
+        self._hpBuff = hpBuff
+        self._dmgBuff = dmgBuff
+        self._goldBuff = goldBuff
+    def __repr__(self) -> str:
+        return "Equipment id:% s name:% s gold:% s hpBuff:% s dmgBuff:% s goldBuff:% s" % (self._id, self._name, self._gold, self._hpBuff, self._dmgBuff, self._goldBuff)
+    def __str__(self) -> str:
+        return "Equipment piece % s is a % s worth % s gold, and provides a hit point bonus of % s, a damage bonus of % s, and a % s percent increased gold bonus." % (self._id, self._name, self._gold, self._hpBuff, self._dmgBuff, self._goldBuff)
+    @property
+    def id(self) -> int:
+        return self._id
+    @id.setter
+    def id(self, id) -> None:
+        self._id = id
+    @id.deleter
+    def id(self) -> None:
+        del self._id
+    @property
+    def name(self) -> str:
+        return self._name
+    @name.setter
+    def name(self, name) -> None:
+        self._name = name
+    @name.deleter
+    def name(self) -> None:
+        del self._name
+    @property
+    def gold(self) -> int:
+        return self._gold
+    @gold.setter
+    def gold(self, gold) -> None:
+        self._gold = gold
+    @gold.deleter
+    def gold(self) -> None:
+        del self._gold
+    @property
+    def hpBuff(self) -> int:
+        return self._hpBuff
+    @hpBuff.setter
+    def hpBuff(self, hpBuff) -> None:
+        self._hpBuff = hpBuff
+    @hpBuff.deleter
+    def hpBuff(self) -> None:
+        del self._hpBuff
+    @property
+    def dmgBuff(self) -> int:
+        return self._dmgBuff
+    @dmgBuff.setter
+    def dmgBuff(self, dmgBuff) -> None:
+        self._dmgBuff = dmgBuff
+    @dmgBuff.deleter
+    def dmgBuff(self) -> None:
+        del self._dmgBuff
+    @property
+    def goldBuff(self) -> int:
+        return self._goldBuff
+    @goldBuff.setter
+    def goldBuff(self, goldBuff) -> None:
+        self._goldBuff = goldBuff
+    @goldBuff.deleter
+    def goldBuff(self) -> None:
+        del self._goldBuff
 
 class Monster:
     def __init__(self, id = 0, type = "", level = 0, hp = 0, gold = 0, dmg = 0) -> None:
-        self.id = id
-        self.type = type
-        self.level = level
-        self.hp = hp
-        self.gold = gold
-        self.dmg = dmg
+        self._id = id
+        self._type = type
+        self._level = level
+        self._hp = hp
+        self._gold = gold
+        self._dmg = dmg
+    def __repr__(self) -> str:
+        return "Monster id:% s type:% s level:% s hp:% s gold:% s dmg:% s" % (self._id, self._type, self._level, self._hp, self._gold, self._dmg)
+    def __str__(self) -> str:
+        return "Monster with id % s is a % s of level % s with % s hit points, carrying % s gold and doing % s damage." % (self._id, self._type, self._level, self._hp, self._gold, self._dmg)
+    @property
+    def id(self) -> int:
+        return self._id
+    @id.setter
+    def id(self, id) -> None:
+        self._id = id
+    @id.deleter
+    def id(self) -> None:
+        del self._id
+    @property
+    def type(self) -> str:
+        return self._type
+    @type.setter
+    def type(self, type) -> None:
+        self._type = type
+    @type.deleter
+    def type(self) -> None:
+        del self._type
+    @property
+    def level(self) -> int:
+        return self._level
+    @level.setter
+    def level(self, level) -> None:
+        self._level = level
+    @level.deleter
+    def level(self) -> None:
+        del self._level
+    @property
+    def hp(self) -> int:
+        return self._hp
+    @hp.setter
+    def hp(self, hp) -> None:
+        self._hp = hp
+    @hp.deleter
+    def hp(self) -> None:
+        del self._hp
+    @property
+    def gold(self) -> int:
+        return self._gold
+    @gold.setter
+    def gold(self, gold) -> None:
+        self._gold = gold
+    @gold.deleter
+    def gold(self) -> None:
+        del self._gold
+    @property
+    def dmg(self) -> int:
+        return self._dmg
+    @dmg.setter
+    def dmg(self, dmg) -> None:
+        self._dmg = dmg
+    @dmg.deleter
+    def dmg(self) -> None:
+        del self._dmg
 
-    def setID(self, id):
-        self.id = id
-
-    def getID(self) -> int:
-        return self.id
-
-    def setType(self, type):
-        self.type = type
-
-    def getType(self) -> str:
-        return self.type
-
-    def setXp(self, level):
-        self.level = level
-    
-    def getXp(self) -> int:
-        return self.level
-
-    def setHp(self, hp):
-        self.hp = hp
-    
-    def getHp(self) -> int:
-        return self.hp
-    
-    def setGold(self, gold):
-        self.gold = gold
-    
-    def getGold(self) -> int:
-        return self.gold
-
-    def setDmg(self, dmg):
-        self.dmg = dmg
-    
-    def getDmg(self) -> int:
-        return self.dmg
-    
-    def print(self):
-        print(str(self.getID()) + " " + str(self.getType()) + " " + str(self.getXp()) + " " + str(self.getHp()) + " " + str(self.getGold()) + " " + str(self.getDmg()))
+if __name__ == "__main__":
+    inn = Inn(1, "destro", "The Squeaky Wheel", 1, 500, 10)
+    print(inn)
+    print([inn])
+    patron = Patron(1, "destro", 0, 25, 100, 5, 0, 0)
+    print(patron)
+    print([patron])
+    equip = Equipment(1, "sword of +2 damage", 20, 0, 2, 0)
+    print(equip)
+    print([equip])
+    enemy = Monster(1, "kobold", 1, 12, 3, 2)
+    print(enemy)
+    print([enemy])

@@ -38,10 +38,10 @@ def populateInns():
 def populateMonsters():
     conn=sqlite3.connect(fileNameString)
     cur=conn.cursor()
-    cur.execute("""INSERT INTO monsters VALUES (NULL, "small goblin", 0, 10, 5, 2)""")
-    cur.execute("""INSERT INTO monsters VALUES (NULL, "small kobold", 0, 12, 7, 3)""")
-    cur.execute("""INSERT INTO monsters VALUES (NULL, "dragon whelp", 1, 14, 10, 4)""")
-    cur.execute("""INSERT INTO monsters VALUES (NULL, "skeleton", 2, 15, 10, 4)""")
+    cur.execute("""INSERT INTO monsters VALUES (NULL, "small goblin", 0, 20, 5, 2)""")
+    cur.execute("""INSERT INTO monsters VALUES (NULL, "small kobold", 0, 24, 7, 3)""")
+    cur.execute("""INSERT INTO monsters VALUES (NULL, "dragon whelp", 1, 30, 10, 4)""")
+    cur.execute("""INSERT INTO monsters VALUES (NULL, "skeleton", 2, 15, 15, 4)""")
     conn.commit()
     conn.close()
 

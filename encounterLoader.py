@@ -19,7 +19,7 @@ def pullPatron():
     conn.commit()
     conn.close()
     patron = Patron(patronTup[0], patronTup[1], patronTup[2], patronTup[3], patronTup[4], patronTup[5], patronTup[6], patronTup[7])
-    patron.print()
+    print(patron)
     return patron
 
 def pullMonster():
@@ -30,7 +30,7 @@ def pullMonster():
     conn.commit()
     conn.close()
     monster = Monster(monsterTup[0], monsterTup[1], monsterTup[2], monsterTup[3], monsterTup[4], monsterTup[5])
-    monster.print()
+    print(monster)
     return monster
 
 fighter = pullPatron()
@@ -40,30 +40,29 @@ def hitChance():
     return randint(0, 1)
 
 def encounter(fighter, monster):
-    if fighter.getXp() >= monster.getXp():
-        while fighter.getHp() > 0 and monster.getHp() > 0:
-            monster.setHp(monster.getHp() - fighter.getDmg() * hitChance())
-            if monster.getHp() <= 0:
+    if fighter.xp >= monster.level:
+        while fighter.hp > 0 and monster.hp > 0:
+            monster.hp = (monster.hp - fighter.dmg * hitChance())
+            if monster.hp <= 0:
                 pass
             else:
-                fighter.setHp(fighter.getHp() - monster.getDmg() * hitChance())
+                fighter.hp = (fighter.hp - monster.dmg * hitChance())
     else:
-        while fighter.getHp() > 0 and monster.getHp() > 0:
-            fighter.setHp(fighter.getHp() - monster.getDmg() * hitChance())
-            if fighter.getHp() <= 0:
+        while fighter.hp > 0 and monster.hp > 0:
+            fighter.hp = (fighter.hp - monster.dmg * hitChance())
+            if fighter.hp <= 0:
                 pass
             else:
-                monster.setHp(monster.getHp() - fighter.getDmg() * hitChance())
+                monster.hp = (monster.hp - fighter.dmg * hitChance())
     
-    print(fighter.getHp())
-    print(monster.getHp())
+    print(fighter.hp)
+    print(monster.hp)
 
-    if fighter.getHp() > 0 and monster.getHp() <= 0:
+    if fighter.hp > 0 and monster.hp <= 0:
         victor = fighter
         return victor
-    elif monster.getHp() > 0 and fighter.getHp() <= 0:
+    elif monster.hp > 0 and fighter.hp <= 0:
         victor = monster
         return victor
-
 victor = encounter(fighter, monster)
-print(victor.getName())
+print(victor.name)
