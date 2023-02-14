@@ -1,15 +1,24 @@
-from fileinput import filename
-from genericpath import isfile
 import os
 import sqlite3
 
 if not os.path.exists("assets/db"):
     os.makedirs("assets/db")
+else:
+    for file in os.listdir("assets/db"):
+        print(file.rstrip(".db") + "\n")
 
-fileName = input("Enter the name of your innkeeper: ")
-fileNameString = "assets/db/" + fileName + ".db"
+def getSave():
+    fileName = input("Enter the name of your innkeeper or enter ! to quit: ")
+    if fileName == "!":
+        quit()
+    else:
+        fileNameString = "assets/db/" + fileName + ".db"
+        return fileName, fileNameString;
+
+fileName, fileNameString = getSave()
+
 if os.path.isfile(fileNameString):
-    print("That save already exists!")
+    print("That save already exists! Exiting.")
     quit()
 else:
     innName = input("Enter the name of your Inn: ")

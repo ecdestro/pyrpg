@@ -3,6 +3,10 @@ import sqlite3
 from random import randint
 from classes import *
 
+for file in os.listdir("assets/db"):
+    print("Saved Innkeepers:")
+    print(file.rstrip(".db") + "\n")
+
 fileName = input("Enter an Innkeeper's name: ")
 fileNameString = "assets/db/" + fileName + ".db"
 if os.path.isfile(fileNameString):
@@ -14,7 +18,7 @@ else:
 def pullPatron():
     conn=sqlite3.connect(fileNameString)
     cur=conn.cursor()
-    cur.execute("""SELECT * FROM patrons WHERE stat = 5""")
+    cur.execute("""SELECT * FROM patrons WHERE stat = 5 ORDER BY RANDOM()""")
     patronTup = cur.fetchone()
     conn.commit()
     conn.close()
@@ -25,7 +29,7 @@ def pullPatron():
 def pullMonster():
     conn=sqlite3.connect(fileNameString)
     cur=conn.cursor()
-    cur.execute("""SELECT * FROM monsters""")
+    cur.execute("""SELECT * FROM monsters ORDER BY RANDOM()""")
     monsterTup = cur.fetchone()
     conn.commit()
     conn.close()
